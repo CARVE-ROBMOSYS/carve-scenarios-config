@@ -1,0 +1,118 @@
+<application>
+    <name> CARVE Scenario Startup </name>
+    <description> Run all required modules to provide navigation functionalities </description>
+    <version>1.0</version>
+
+	<!-- YARP modules -->
+    <module>
+        <name> baseControl </name>
+        <parameters> --context baseControl_SIM --from baseCtrl_cer.ini --use_ROS true --robot SIM_CER_ROBOT --skip_robot_interface_check </parameters>
+        <node>localhost</node>
+        <!-- <environment> YARP_CLOK=/clock </environment>       <!-- set YARP_CLOCK environment variables for this module.-->
+    </module>
+
+    <module>
+        <name>yarpdev</name>
+        <parameters> --device transformServer --ROS::enable_ros_publisher false --ROS::enable_ros_subscriber true </parameters>
+        <node>localhost</node>
+        <!-- <environment> YARP_CLOK=/clock </environment>       <!-- set YARP_CLOCK environment variables for this module.-->
+    </module>
+
+    <module>  <!-- state publisher requires the TF server -->
+        <name> yarprobotstatepublisher </name>
+	    <parameters>  --robot cer --model /usr/local/src/robot/ROBOT_CODE/04_cer/cer/app/robots/CER01/cer.urdf </parameters>
+        <node>IITICUBWS016</node>
+        <environment> YARP_CLOK=/clock </environment>       <!-- set YARP_CLOCK environment variables for this module.-->
+        <dependencies>
+            <port timeout="20"> /SIM_CER_ROBOT/mobile_base/stateExt:o </port>
+        </dependencies>  
+    </module>
+
+	<!-- YARP localization and navigation stack -->
+	<module>
+	   <name>yarpdev</name>
+	   <parameters> --device map2DServer --mapCollectionContext exampleMap </parameters>
+	   <node>localhost</node>
+	</module>
+
+	<module>
+	   <name>yarpdev</name>
+	   <parameters> --device localization2DServer --subdevice odomLocalizer --context odomConfig --from localizationServer.ini </parameters>
+	   <node> localhost </node>
+        <dependencies>
+            <port timeout="20"> /baseControl/odometry:o </port>
+        </dependencies>  
+	</module>
+
+	<module>
+	   <name>yarpdev</name>
+	   <parameters> --device navigation2DServer --subdevice robotPathPlannerDev --context odomConfig --from robotPathPlanner_cer.ini </parameters>
+	   <node> localhost </node>
+        <dependencies>
+            <port timeout="20"> /localizationServer/rpc </port>
+            <port timeout="20"> /mapServer/rpc </port>
+        </dependencies>  
+	</module>
+
+	<module>
+	   <name>navigationGUI</name>
+	   <parameters> --context odomConfig --from navigationGUI_robot_cer.ini</parameters>
+	   <node> localhost </node>
+        <dependencies>
+            <port timeout="30"> /navigationServer/rpc </port>
+            <port timeout="30"> /mapServer/rpc </port>
+        </dependencies>  
+	</module>
+
+	<!-- GUIs -->
+	<module>
+	   <name>yarpview</name>
+	   <parameters>--name /navView:i --out /mapClick:o</parameters>
+	   <node> IITICUBWS016 </node>
+	</module>
+
+    <module>
+        <name> yarplogger </name>
+        <node>localhost</node>
+    </module>
+
+    <module>
+        <name> yarpscope </name>
+        <parameters>  --index "(1 2 3)"  --color "(red green blue)" </parameters>
+        <node>localhost</node>
+    </module>
+
+
+ 	<!-- connections for yarp navigation stack -->
+	<connection>
+	  <from>/joystickCtrl:o</from>
+	   <to>/baseControl/joystick1:i</to>
+	   <protocol>tcp</protocol>
+	</connection>
+
+	<connection>
+	  <from>/robotGoto/control:o</from>
+	  <to>/baseControl/control:i</to>
+	  <protocol>udp</protocol>
+	</connection>
+
+	<connection>
+	  <from>/navigationGui/map:o</from>
+	  <to>/navView:i</to>
+	  <protocol>udp</protocol>
+	</connection>
+
+	<connection>
+	  <from>/robotPathPlanner/commands:o</from>
+	  <to>/robotGoto/rpc</to>
+	  <protocol>tcp</protocol>
+	</connection>
+
+	<connection>
+	  <from>/mapClick:o</from>
+	  <to>/navigationGui/yarpviewTarget:i</to>
+	  <protocol>tcp</protocol>
+	</connection>
+
+</application>
+

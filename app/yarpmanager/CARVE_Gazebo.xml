@@ -1,0 +1,13 @@
+<application>
+    <name> CARVE Gazebo </name>
+    <description> Start gazebo simulator within a simple map </description>
+    <version>1.0</version>
+
+    <module>
+        <name> gazebo </name>
+        <parameters> -slibgazebo_yarp_clock.so /home/icub/SOFTWARE/demoConfigs/gazebo/world/map_2rooms_R1.world </parameters>
+        <node> IITICUBWS016 </node>
+    </module>
+
+</application>
+
