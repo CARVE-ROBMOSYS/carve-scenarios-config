@@ -9,4 +9,4 @@
 add_subdirectory(maps)
 add_subdirectory(scenarios)
 add_subdirectory(yarpmanager)
-
+add_subdirectory(sanQuirico)
