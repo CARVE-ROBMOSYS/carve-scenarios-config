@@ -1,0 +1,23 @@
+
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <world name="default">
+    <!-- A global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+<!-- No need for ground plane, because the room has a floor -->
+<!-- 
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+-->
+
+    <!-- room map -->
+    <include>
+        <uri>model://sanquirico </uri>
+    </include>
+
+  </world>
+</sdf>
