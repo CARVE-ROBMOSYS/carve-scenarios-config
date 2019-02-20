@@ -1,0 +1,98 @@
+<application>
+<name> Navigation CARVE R1</name>
+
+<dependencies>
+</dependencies>
+
+<module>
+   <name>baseControl</name>
+   <parameters>--context baseControl --from baseCtrl_cer.ini  --skip_robot_interface_check</parameters>
+   <node>r1-base</node>
+</module>
+
+<module>
+    <name>joystickCtrl</name>
+    <parameters>--context joystickCtrl --from cer_linux.ini</parameters>
+    <node>r1-base</node>
+</module>
+
+<module>
+   <name>yarpdev</name>
+   <parameters>--device transformServer --ROS "(enable_ros_publisher 0)" "(enable_ros_subscriber 1)"</parameters>
+   <node>r1-console-linux</node>
+</module>
+
+<module>
+   <name>yarpdev</name>
+   <parameters>--device map2DServer --mapCollectionContext carve </parameters>
+   <node>r1-console-linux</node>
+</module>
+
+<module>
+   <name>yarpdev</name>
+   <parameters>--device localization2DServer --subdevice rosLocalizer --context carve --from localizationServer.ini</parameters>
+   <node>r1-console-linux</node>
+</module>
+
+<module>
+   <name>yarpdev</name>
+   <parameters>--device navigation2DServer --subdevice robotPathPlannerDev --context carve --from robotPathPlanner_cer.ini</parameters>
+   <node>r1-console-linux</node>
+</module>
+
+<module>
+   <name>navigationGUI</name>
+   <parameters>--context carve --from navigationGUI_cer.ini</parameters>
+   <node>r1-console-linux</node>
+</module>
+
+<module>
+   <name>yarpview</name>
+   <parameters>--name /navView:i --out /mapClick:o</parameters>
+   <node>r1-console-linux</node>
+</module>
+
+<!--    -->
+
+<connection>
+  <from>/joystickCtrl:o</from>
+   <to>/baseControl/joystick1:i</to>
+   <protocol>tcp</protocol>
+</connection>
+
+
+<connection>
+  <from>/robotGoto/control:o</from>
+  <to>/baseControl/control:i</to>
+  <protocol>udp</protocol>
+</connection>
+
+<connection>
+  <from>/navigationGui/map:o</from>
+  <to>/navView:i</to>
+  <protocol>udp</protocol>
+</connection>
+
+<connection>
+  <from>/robotPathPlanner/commands:o</from>
+  <to>/robotGoto/rpc</to>
+  <protocol>tcp</protocol>
+</connection>
+
+
+
+<connection>
+  <from>/mapClick:o</from>
+  <to>/navigationGui/yarpviewTarget:i</to>
+  <protocol>tcp</protocol>
+</connection>
+
+
+
+<connection>
+  <from>/baseControl/odometry:o</from>
+  <to>/fakeLaser/location:i</to>
+  <protocol>tcp</protocol>
+</connection>
+
+</application>

@@ -1,5 +1,6 @@
 <application>
-    <name> CARVE Scenario Startup </name>
+    <name> Navigation CARVE Gazebo </name>
+
     <description> Run all required modules to provide navigation functionalities </description>
     <version>1.0</version>
 
@@ -12,7 +13,7 @@
     </module>
 
     <module>
-        <name>yarpdev</name>
+        <name> yarpdev </name>
         <parameters> --device transformServer --ROS::enable_ros_publisher false --ROS::enable_ros_subscriber true </parameters>
         <node>localhost</node>
         <!-- <environment> YARP_CLOK=/clock </environment>       <!-- set YARP_CLOCK environment variables for this module.-->
