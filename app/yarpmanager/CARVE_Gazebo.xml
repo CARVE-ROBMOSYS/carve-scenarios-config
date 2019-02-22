@@ -5,7 +5,7 @@
 
     <module>
         <name> gazebo </name>
-        <parameters> -slibgazebo_yarp_clock.so /home/icub/SOFTWARE/demoConfigs/gazebo/world/map_2rooms_R1.world </parameters>
+        <parameters> -slibgazebo_yarp_clock.so /home/icub/SOFTWARE/carve-scenarios-config/gazebo/world/sanquirico_simplified_R1.world </parameters>
         <node> IITICUBWS016 </node>
     </module>
 

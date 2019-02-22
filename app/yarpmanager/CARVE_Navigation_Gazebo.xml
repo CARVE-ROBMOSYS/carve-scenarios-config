@@ -1,5 +1,5 @@
 <application>
-    <name> Navigation CARVE Gazebo </name>
+    <name> CARVE Navigation Gazebo </name>
 
     <description> Run all required modules to provide navigation functionalities </description>
     <version>1.0</version>
@@ -32,13 +32,13 @@
 	<!-- YARP localization and navigation stack -->
 	<module>
 	   <name>yarpdev</name>
-	   <parameters> --device map2DServer --mapCollectionContext exampleMap </parameters>
+	   <parameters> --device map2DServer --mapCollectionContext sanquirico_sim </parameters>
 	   <node>localhost</node>
 	</module>
 
 	<module>
 	   <name>yarpdev</name>
-	   <parameters> --device localization2DServer --subdevice odomLocalizer --context odomConfig --from localizationServer.ini </parameters>
+	   <parameters> --device localization2DServer --subdevice odomLocalizer --context sanquirico_sim --from localizationServer.ini </parameters>
 	   <node> localhost </node>
         <dependencies>
             <port timeout="20"> /baseControl/odometry:o </port>
@@ -47,7 +47,7 @@
 
 	<module>
 	   <name>yarpdev</name>
-	   <parameters> --device navigation2DServer --subdevice robotPathPlannerDev --context odomConfig --from robotPathPlanner_cer.ini </parameters>
+	   <parameters> --device navigation2DServer --subdevice robotPathPlannerDev --context sanquirico_sim --from robotPathPlanner_cer.ini </parameters>
 	   <node> localhost </node>
         <dependencies>
             <port timeout="20"> /localizationServer/rpc </port>

@@ -4,16 +4,12 @@
     <version>1.0</version>
 
 	<!-- fake module that moves a bit the robot: TO BE REMOVED  -->
+	<!-- Handling BT stuff -->
 	<module>
-	   <name>move_joints_module</name>
-	   <node> localhost </node>
-        <dependencies>
-            <port timeout="20"> /SIM_CER_ROBOT/head/stateExt:o </port>
-            <port timeout="20"> /SIM_CER_ROBOT/right_arm/stateExt:o </port>
-        </dependencies>  
+	   <name>ask_for_help</name>
+	   <node>localhost</node>
 	</module>
 
-	<!-- Handling BT stuff -->
 	<module>
 	   <name>blackboard_module</name>
 	   <node>localhost</node>
@@ -30,6 +26,11 @@
 	</module>
 
 	<module>
+	   <name>text_to_action</name>
+	   <node>localhost</node>
+	</module>
+
+	<module>
 	   <name>always_running_module</name>
 	   <node>localhost</node>
 	</module>
@@ -39,12 +40,53 @@
 	   <node>localhost</node>
 	</module>
 
+	<module>
+	   <name>terminator </name>
+	   <node>localhost</node>
+	</module>
+
  	<!-- connections -->
 
 	<connection>
-	  <from>/joystickCtrl:o</from>
-	   <to>/baseControl/joystick1:i</to>
-	   <protocol>tcp</protocol>
+		<from> /ComputeInvPose/blackboard/rpc:o </from>
+		<to>   /blackboard/rpc:i </to>
+		<protocol>tcp</protocol>
+	</connection>
+
+	<connection>
+		<from> /setInvPoseInvalid/blackboard/rpc:o </from>
+		<to>   /blackboard/rpc:i </to>
+		<protocol>tcp</protocol>
+	</connection>
+
+	<connection>
+		<from> /LocateBottle/blackboard/rpc:o </from>
+		<to>   /blackboard/rpc:i </to>
+		<protocol>tcp</protocol>
+	</connection>
+
+	<connection>
+		<from> /TextToAction/blackboard/rpc:o </from>
+		<to>   /blackboard/rpc:i </to>
+		<protocol>tcp</protocol>
+	</connection>
+
+	<connection>
+		<from> /ComputeInvPose/blackboard/rpc:o </from>
+		<to>   /blackboard/rpc:i </to>
+		<protocol>tcp</protocol>
+	</connection>
+
+	<connection>
+		<from> /AskForHelp/rpc:o </from>
+		<to>   /?????? </to>
+		<protocol>tcp</protocol>
+	</connection>
+
+	<connection>
+		<from> /fromSpeech:o </from>
+		<to>   /TextToAction/speechTranscriptionPort:i </to>
+		<protocol>tcp</protocol>
 	</connection>
 
 
