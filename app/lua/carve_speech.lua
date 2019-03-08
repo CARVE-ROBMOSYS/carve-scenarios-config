@@ -46,20 +46,24 @@ port_speech_output:open("/carveSpeech/speech:o")
 port_ispeak:open("/carveSpeech/ispeak:o")
 
 
-ret = true
-ret = ret and yarp.NetworkBase_connect(port_speech_recog:getName(), "/speechRecognizer/rpc")
-ret = ret and yarp.NetworkBase_connect(port_ispeak:getName(), "/iSpeak")
+
+ret  = yarp.NetworkBase_connect(port_speech_recog:getName(), "/speechRecognizer/rpc")
+ret2 = yarp.NetworkBase_connect(port_ispeak:getName(), "/iSpeak")
 
 if ret == false then
     print("\n\nERROR WITH CONNECTIONS, PLEASE CHECK\n\n")
     os.exit()
 end
 
+if ret2 == false then
+    print("\n\ncannot connect to iSpeak, you will not hear replies from the robot\n\n")
+end
+
 ---------------------------------------
 -- functions Speech Recognition      --
 ---------------------------------------
 
-objects = {"kitchen", "corridor", "bottle"}
+objects = {"Kitchen", "Room", "Corridor", "Bottle", "Pour"}
 
 -- defining speech grammar in order to expand the speech recognition
 grammar="See you soon | This is the #Object | Take the #Object | Pour the #Object"
