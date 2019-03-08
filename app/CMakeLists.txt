@@ -6,8 +6,10 @@
 # This software may be modified and distributed under the terms of the
 # BSD-3-Clause license. See the accompanying LICENSE file for details.
 
+add_subdirectory(lua)
 add_subdirectory(maps)
 add_subdirectory(scenarios)
 add_subdirectory(yarpmanager)
 add_subdirectory(sanquirico)
+add_subdirectory(carve-common)
 add_subdirectory(sanquirico_sim)

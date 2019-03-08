@@ -4,7 +4,7 @@
 # CopyPolicy: Released under the terms of the GNU GPL v2.0.
 #
 
-set(appName sanQuirico)
+set(appName sanquirico)
 
 file(GLOB appFiles ${CMAKE_CURRENT_SOURCE_DIR}/*.*)
 list(REMOVE_ITEM appFiles "${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt")
