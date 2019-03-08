@@ -1,0 +1,97 @@
+<application>
+<name>CARVE R1 person follower </name>
+
+        <dependencies>
+         <!--       <port>/icub/camcalib/left/out</port> -->
+         <!--	lanciamo il gaze controller dopo
+                <port>/cer_gaze-controller/head/rpc:o</port>
+           -->
+        </dependencies>
+
+        <module>
+                <name>yarpOpenPose</name>
+                <node>r1-cuda-linux</node>
+        </module>
+
+        <module>
+                <name>skeletonRetriever</name>
+                <parameters> --camera::fov "(58.5900911722829 45.6422405248008)"</parameters>
+                <node>r1-cuda-linux</node>
+        </module>
+
+        <module>
+                <name>cer_gaze-controller</name>
+                <parameters>--robot SIM_CER_ROBOT --cameras::file cerSimEyes_640x480.ini </parameters>
+                <node>localhost</node>
+        </module>
+
+
+        <module>
+                <name>yarpview</name>
+                <parameters>--name /viewer --x 320 --y 0 --p 50 --compact</parameters>
+                <node>localhost</node>
+        </module>
+  
+        <module>
+                <name>follower</name>
+                <parameters> --context sanquirico --from follower.ini</parameters>
+                <node>localhost</node>
+        </module>
+
+        <connection>
+            <from>/cer/depthCamera/rgbImage:o</from>
+            <to>/yarpOpenPose/image:i</to>
+            <protocol>mjpeg</protocol>
+        </connection>
+
+        <connection>
+            <from>/cer/depthCamera/depthImage:o</from>
+            <to>/yarpOpenPose/float:i</to>
+            <!--<protocol>fast_tcp+send.portmonitor+file.zfp+recv.portmonitor+file.zfp+type.dll</protocol>-->
+            <protocol>fast_tcp</protocol>
+        </connection>
+
+        <connection>
+            <from>/yarpOpenPose/float:o</from>
+            <to>/skeletonRetriever/depth:i</to>
+            <!-- <protocol>fast_tcp+send.portmonitor+file.zfp+recv.portmonitor+file.zfp+type.dll</protocol> -->
+            <protocol>fast_tcp</protocol>
+        </connection>
+
+        <connection>
+            <from>/skeletonRetriever/cam:rpc</from>
+            <to>/SIM_CER_ROBOT/depthCamera/rpc:i</to>
+            <protocol>fast_tcp</protocol>
+        </connection>
+
+        <connection>
+            <from>/yarpOpenPose/target:o</from>
+            <to>/skeletonRetriever/skeletons:i</to>
+            <protocol>fast_tcp</protocol>
+        </connection>
+
+        <connection>
+            <from>/skeletonRetriever/viewer:o</from>
+            <to>/follower/targetPoints:i</to>
+            <protocol>fast_tcp</protocol>
+        </connection>
+
+        <connection>
+                <from>/follower/commands:o</from>
+                <to>/baseControl/aux_control:i</to>
+                <protocol>udp</protocol>
+        </connection>
+
+	    <connection>
+                <from>/follower/gazetargets:o</from>
+                <to>/cer_gaze-controller/target:i</to>
+                <protocol>udp</protocol>
+        </connection>
+        
+     	<connection>
+                <from>/yarpOpenPose/image:o</from>
+                <to>/viewer</to>
+                <protocol>tcp</protocol>
+        </connection>
+
+</application>

@@ -1,0 +1,59 @@
+<application>
+    <name> CARVE Others </name>
+    <description> Funny things </description>
+    <version>1.0</version>
+
+    <!-- for speech -->
+    <module>
+        <name>yarpdev</name>
+        <parameters> --device speech --lingware-context speech --default-language en-GB --robot r1 --pitch 80 --speed 100</parameters>
+        <node>r1-face</node>
+    </module>
+
+    <module>
+        <name>iSpeak</name>
+        <parameters>--package speech-dev</parameters>
+        <node>r1-face</node>
+    </module>
+
+    <!-- faccina carina -->
+    <module>
+        <name>yarpdev</name>
+        <parameters>--device faceDisplayServer</parameters>
+        <node>r1-face</node>
+    </module>
+
+     <module>
+        <name>faceExpressionImage</name>
+        <node>r1-base</node>
+    </module>
+
+    <module>
+        <name>carve_speech.lua</name>
+        <deployer>lua</deployer>
+        <node>localhost</node>
+    </module>
+
+ 	<!-- connections -->
+
+	<connection>
+		<from> /carveSpeech/speech:o </from>
+		<to>   /TextToAction/speechTranscriptionPort:i </to>
+		<protocol>tcp</protocol>
+	</connection>
+
+    <connection>
+        <from>/faceExpressionImage/image:o</from> 
+        <to>/robot/faceDisplay/image:i</to>
+        <protocol>tcp</protocol>
+    </connection>
+
+    <!--connections for talking -->
+     <connection>
+        <from>/iSpeak/speech-dev/rpc</from>
+        <to>/r1/speech:rpc</to>
+        <protocol>tcp</protocol>
+    </connection>
+
+</application>
+

@@ -1,5 +1,5 @@
 <application>
-    <name> CARVE Navigation Gazebo </name>
+    <name> CARVE Gazebo Navigation  </name>
 
     <description> Run all required modules to provide navigation functionalities </description>
     <version>1.0</version>
@@ -7,7 +7,7 @@
 	<!-- YARP modules -->
     <module>
         <name> baseControl </name>
-        <parameters> --context baseControl_SIM --from baseCtrl_cer.ini --use_ROS true --robot SIM_CER_ROBOT --skip_robot_interface_check </parameters>
+        <parameters> --context baseControl_SIM --from robot_2wheels.ini --use_ROS true --robot SIM_CER_ROBOT --skip_robot_interface_check </parameters>
         <node>localhost</node>
         <!-- <environment> YARP_CLOK=/clock </environment>       <!-- set YARP_CLOCK environment variables for this module.-->
     </module>
@@ -38,16 +38,13 @@
 
 	<module>
 	   <name>yarpdev</name>
-	   <parameters> --device localization2DServer --subdevice odomLocalizer --context sanquirico_sim --from localizationServer.ini </parameters>
-	   <node> localhost </node>
-        <dependencies>
-            <port timeout="20"> /baseControl/odometry:o </port>
-        </dependencies>  
+	   <parameters> --device localization2DServer --subdevice gazeboLocalizer --context sanquirico_sim --from localizationServer.ini </parameters>
+	   <node> localhost </node>  
 	</module>
 
 	<module>
 	   <name>yarpdev</name>
-	   <parameters> --device navigation2DServer --subdevice robotPathPlannerDev --context sanquirico_sim --from robotPathPlanner_cer.ini </parameters>
+	   <parameters> --device navigation2DServer --subdevice robotPathPlannerDev --context sanquirico_sim --from robotPathPlanner_sim_cer.ini </parameters>
 	   <node> localhost </node>
         <dependencies>
             <port timeout="20"> /localizationServer/rpc </port>
@@ -69,19 +66,8 @@
 	<module>
 	   <name>yarpview</name>
 	   <parameters>--name /navView:i --out /mapClick:o</parameters>
-	   <node> IITICUBWS016 </node>
+	   <node> localhost </node>
 	</module>
-
-    <module>
-        <name> yarplogger </name>
-        <node>localhost</node>
-    </module>
-
-    <module>
-        <name> yarpscope </name>
-        <parameters>  --index "(1 2 3)"  --color "(red green blue)" </parameters>
-        <node>localhost</node>
-    </module>
 
 
  	<!-- connections for yarp navigation stack -->

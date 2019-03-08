@@ -40,9 +40,19 @@
 	   <node>localhost</node>
 	</module>
 
+    <!-- reminder -->
 	<module>
-	   <name>terminator </name>
-	   <node>localhost</node>
+	   <name>roslaunch</name>
+       <parameters> robotStatePublisher.launch </parameters>
+       <workdir> /usr/local/src/robot/cer/app/robots/CER02 </workdir> 
+	   <node>r1-base</node>
+	</module>
+
+	<module>
+	   <name>roslaunch</name>
+       <parameters> amcl_map_from_yarp.launch </parameters>
+       <workdir> /usr/local/src/robot/cer/app/cerRos/launch/localization </workdir> 
+	   <node>r1-base</node>
 	</module>
 
  	<!-- connections -->
@@ -84,11 +94,10 @@
 	</connection>
 
 	<connection>
-		<from> /fromSpeech:o </from>
+		<from> /carveSpeech/speech:o </from>
 		<to>   /TextToAction/speechTranscriptionPort:i </to>
 		<protocol>tcp</protocol>
 	</connection>
-
 
 </application>
 
