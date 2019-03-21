@@ -10,18 +10,23 @@
 
         <module>
                 <name>yarpOpenPose</name>
-                <node>r1-cuda-linux</node>
+                <node>r1-console-cuda</node>
         </module>
 
         <module>
                 <name>skeletonRetriever</name>
-                <parameters> --camera::fov "(58.5900911722829 45.6422405248008)"</parameters>
-                <node>r1-cuda-linux</node>
+                <node>r1-console-cuda</node>
+        </module>
+
+        <module>
+                <name>yarpdev</name>
+                <parameters>--context AssistiveRehab --from realsense2.ini</parameters>
+                <node>r1-torso1</node>
         </module>
 
         <module>
                 <name>cer_gaze-controller</name>
-                <parameters>--robot SIM_CER_ROBOT --cameras::file cerSimEyes_640x480.ini </parameters>
+                <parameters>--cameras::context cameraCalibration --cameras::file cerEyes_320x240.ini --joints-limits::pitch "(-20.0 20.0)" --joints-limits::yaw "(-40.0 40.0)" </parameters>
                 <node>localhost</node>
         </module>
 
@@ -39,13 +44,13 @@
         </module>
 
         <connection>
-            <from>/cer/depthCamera/rgbImage:o</from>
+            <from>/depthCamera/rgbImage:o</from>
             <to>/yarpOpenPose/image:i</to>
             <protocol>mjpeg</protocol>
         </connection>
 
         <connection>
-            <from>/cer/depthCamera/depthImage:o</from>
+            <from>/depthCamera/depthImage:o</from>
             <to>/yarpOpenPose/float:i</to>
             <!--<protocol>fast_tcp+send.portmonitor+file.zfp+recv.portmonitor+file.zfp+type.dll</protocol>-->
             <protocol>fast_tcp</protocol>
@@ -60,7 +65,7 @@
 
         <connection>
             <from>/skeletonRetriever/cam:rpc</from>
-            <to>/SIM_CER_ROBOT/depthCamera/rpc:i</to>
+            <to>/depthCamera/rpc:i</to>
             <protocol>fast_tcp</protocol>
         </connection>
 
@@ -74,6 +79,12 @@
             <from>/skeletonRetriever/viewer:o</from>
             <to>/follower/targetPoints:i</to>
             <protocol>fast_tcp</protocol>
+        </connection>
+
+        <connection>
+                <from>/follower/pippo/rpc</from>
+                <to>/cer_gaze-controller/rpc</to>
+                <protocol>tcp</protocol>
         </connection>
 
         <connection>
