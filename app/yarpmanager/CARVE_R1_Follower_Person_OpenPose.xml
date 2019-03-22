@@ -82,7 +82,7 @@
         </connection>
 
         <connection>
-                <from>/follower/pippo/rpc</from>
+                <from>/follower/gazeController/rpc</from>
                 <to>/cer_gaze-controller/rpc</to>
                 <protocol>tcp</protocol>
         </connection>

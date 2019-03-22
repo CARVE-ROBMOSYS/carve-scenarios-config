@@ -29,6 +29,13 @@
     </module>
 
     <module>
+        <name>speechRecognizer</name>
+        <parameters></parameters>
+        <node>r1-vm-windows</node>
+    </module>
+
+
+    <module>
         <name>carve_speech.lua</name>
         <deployer>lua</deployer>
         <node>localhost</node>

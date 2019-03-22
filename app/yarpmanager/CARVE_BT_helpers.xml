@@ -99,5 +99,29 @@
 		<protocol>tcp</protocol>
 	</connection>
 
+	<connection>
+		<from> /LocateBottle/gazeExploration/rpc:o </from>
+		<to>   /iolStateMachineHandler/human:rpc </to>
+		<protocol>tcp</protocol>
+	</connection>
+
+	<connection>
+		<from> /LocateBottle/objectPropertiesCollector/rpc:o</from>
+		<to>   /memory/rpc </to>
+		<protocol>tcp</protocol>
+	</connection>
+
+	<connection>
+		<from> /LocateBottle/pointCloudRead/rpc:o </from>
+		<to>   /pointCloudRead/rpc </to>
+		<protocol>tcp</protocol>
+	</connection>	
+
+    <connection>
+		<from> /LocateBottle/findSuperquadric/rpc:o </from>
+		<to>   /find-superquadric/points:rpc </to>
+		<protocol>tcp</protocol>
+	</connection>
+
 </application>
 
