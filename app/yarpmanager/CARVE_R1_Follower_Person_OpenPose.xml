@@ -16,6 +16,7 @@
         <module>
                 <name>skeletonRetriever</name>
                 <node>r1-console-cuda</node>
+                <parameters> --camera::fov "(58.5900911722829 45.6422405248008)"</parameters>
         </module>
 
         <module>
