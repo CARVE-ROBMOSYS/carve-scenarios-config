@@ -1,0 +1,147 @@
+<application>
+    <name> CARVE Gazebo Monitors  </name>
+
+    <description> Run all manitor for CARVE demo </description>
+    <version>1.0</version>
+
+	<!-- YARP modules -->
+    <module>
+        <name> skill_monitor </name>
+        <parameters> --name GoToRoom --context carve-common --from monitor_config.ini </parameters>
+        <node>localhost</node>
+    </module>
+
+    <module>
+        <name> skill_monitor </name>
+        <parameters> --name FollowHuman --context carve-common --from monitor_config.ini </parameters>
+        <node>localhost</node>
+    </module>
+
+    <module>
+        <name> skill_monitor </name>
+        <parameters> --name FindBottle --context carve-common --from monitor_config.ini </parameters>
+        <node>localhost</node>
+    </module>
+
+    <module>
+        <name> skill_monitor </name>
+        <parameters> --name ComputeInvPose --context carve-common --from monitor_config.ini </parameters>
+        <node>localhost</node>
+    </module>
+
+    <module>
+        <name> skill_monitor </name>
+        <parameters> --name KeepArmsForGrasp --context carve-common --from monitor_config.ini </parameters>
+        <node>localhost</node>
+    </module>
+
+    <module>
+        <name> skill_monitor </name>
+        <parameters> --name GoToInvPose --context carve-common --from monitor_config.ini </parameters>
+        <node>localhost</node>
+    </module>
+
+    <module>
+        <name> skill_monitor </name>
+        <parameters> --name LocateBottle --context carve-common --from monitor_config.ini </parameters>
+        <node>localhost</node>
+    </module>
+
+    <module>
+        <name> skill_monitor </name>
+        <parameters> --name GraspBottle --context carve-common --from monitor_config.ini </parameters>
+        <node>localhost</node>
+    </module>
+
+    <module>
+        <name> skill_monitor </name>
+        <parameters> --name SetInvPoseInvalid --context carve-common --from monitor_config.ini </parameters>
+        <node>localhost</node>
+    </module>
+
+    <module>
+        <name> skill_monitor </name>
+        <parameters> --name AskForHelp --context carve-common --from monitor_config.ini </parameters>
+        <node>localhost</node>
+    </module>
+
+
+
+
+
+
+ 	<!-- connections for yarp navigation stack -->
+	<connection>
+	  <from>   </from>
+	   <to> /monitor/GoToRoom/event:i </to>
+	   <protocol>tcp</protocol>
+	</connection>
+
+	<connection>
+	  <from> /tickManager/follower/monitor:o  </from>
+	   <to> /monitor/FollowHuman/event:i </to>
+	   <protocol>tcp</protocol>
+	</connection>
+
+	<connection>
+	  <from>   </from>
+	   <to> /monitor/FindBottle/event:i </to>
+	   <protocol>tcp</protocol>
+	</connection>
+
+	<connection>
+	  <from> /tickManager/ComputeInvPose/monitor:o </from>
+	   <to>  /monitor/ComputeInvPose/event:i </to>
+	   <protocol>tcp</protocol>
+	</connection>
+
+	<connection>
+	  <from>   </from>
+	   <to> /monitor/KeepArmsForGrasp/event:i </to>
+	   <protocol>tcp</protocol>
+	</connection>
+
+	<connection>
+	  <from>   </from>
+	   <to> /monitor/GoToInvPose/event:i </to>
+	   <protocol>tcp</protocol>
+	</connection>
+
+<!-- this is for real R1 robot 
+	<connection>
+	  <from> /tickManager/LocateBottle/monitor:o  </from>
+	   <to>  /monitor/LocateBottle/event:i </to>
+	   <protocol>tcp</protocol>
+	</connection>
+
+	<connection>
+	  <from> /LocateBottle/monitor:o  </from>
+	   <to> /monitor/LocateBottle/event:i </to>
+	   <protocol>tcp</protocol>
+	</connection>
+-->
+
+	<connection>
+	  <from>   </from>
+	   <to> /monitor/GraspBottle/event:i </to>
+	   <protocol>tcp</protocol>
+	</connection>
+
+	<connection>
+	  <from> /tickManager/setInvPoseInvalid/monitor:o  </from>
+	   <to> /monitor/SetInvPoseInvalid/event:i </to>
+	   <protocol>tcp</protocol>
+	</connection>
+
+	<connection>
+	  <from> /tickManager/AskForHelp/monitor:o  </from>
+	   <to> /monitor/AskForHelp/event:i </to>
+	   <protocol>tcp</protocol>
+	</connection>
+
+
+
+
+
+</application>
+
