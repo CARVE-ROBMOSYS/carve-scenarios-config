@@ -1,0 +1,13 @@
+[skills]
+
+GoToRoom 
+FollowHuman
+FindBottle
+ComputeInvPose
+KeepArmsForGrasp
+GoToInvPose
+LocateBottle
+GraspBottle
+SetInvPoseInvalid
+AskForHelp
+

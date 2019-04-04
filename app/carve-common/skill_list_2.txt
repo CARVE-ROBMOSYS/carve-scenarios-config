@@ -1,0 +1,13 @@
+[skills]
+
+follower
+GoToRoom
+FindBottle
+ComputeInvPose
+KeepArmsForGrasp
+GoToInvPose
+LocateBottle
+GraspBottle
+SetInvPoseInvalid
+AskForHelp
+environment
