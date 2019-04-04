@@ -1,0 +1,58 @@
+<application>
+    <name> CARVE Gazebo BT Helpers </name>
+    <description> Run modules required by CARVE BT </description>
+    <version>1.0</version>
+
+	<module>
+	   <name>ask_for_help</name>
+	   <node>localhost</node>
+	</module>
+
+	<module>
+	   <name>blackboard_module</name>
+	   <node>localhost</node>
+	</module>
+
+	<module>
+	   <name>compute_inv_pose_module</name>
+           <parameters> --sim </parameters>
+	   <node>localhost</node>
+	</module>
+
+	<module>
+	   <name>text_to_action</name>
+	   <node>localhost</node>
+	</module>
+
+	<module>
+	   <name>set_inv_pose_invalid_module</name>
+	   <node>localhost</node>
+	</module>
+
+ 	<!-- connections -->
+	<connection>
+		<from> /ComputeInvPose/blackboard/rpc:o </from>
+		<to>   /blackboard/rpc:i </to>
+		<protocol>tcp</protocol>
+	</connection>
+
+	<connection>
+		<from> /setInvPoseInvalid/blackboard/rpc:o </from>
+		<to>   /blackboard/rpc:i </to>
+		<protocol>tcp</protocol>
+	</connection>
+
+	<connection>
+		<from> /TextToAction/blackboard/rpc:o </from>
+		<to>   /blackboard/rpc:i </to>
+		<protocol>tcp</protocol>
+	</connection>
+
+	<connection>
+		<from> /ComputeInvPose/blackboard/rpc:o </from>
+		<to>   /blackboard/rpc:i </to>
+		<protocol>tcp</protocol>
+	</connection>
+
+</application>
+

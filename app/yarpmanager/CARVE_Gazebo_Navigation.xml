@@ -20,13 +20,9 @@
     </module>
 
     <module>  <!-- state publisher requires the TF server -->
-        <name> yarprobotstatepublisher </name>
-	    <parameters>  --robot cer --model /usr/local/src/robot/ROBOT_CODE/04_cer/cer/app/robots/CER01/cer.urdf </parameters>
-        <node>IITICUBWS016</node>
-        <environment> YARP_CLOK=/clock </environment>       <!-- set YARP_CLOCK environment variables for this module.-->
-        <dependencies>
-            <port timeout="20"> /SIM_CER_ROBOT/mobile_base/stateExt:o </port>
-        </dependencies>  
+        <name> statePub.sh </name>
+        <node>localhost</node>
+	<workdir> /home/r1-user </workdir>
     </module>
 
 	<!-- YARP localization and navigation stack -->
@@ -40,6 +36,9 @@
 	   <name>yarpdev</name>
 	   <parameters> --device localization2DServer --subdevice gazeboLocalizer --context sanquirico_sim --from localizationServer.ini </parameters>
 	   <node> localhost </node>  
+           <dependencies>
+                <port timeout="20"> /mapServer/rpc </port>
+            </dependencies>  
 	</module>
 
 	<module>

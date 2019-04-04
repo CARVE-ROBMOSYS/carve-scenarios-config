@@ -12,13 +12,6 @@
                 <parameters>--robot SIM_CER_ROBOT --cameras::file cerSimEyes_640x480.ini </parameters>
                 <node>localhost</node>
         </module>
-
-
-        <module>
-                <name>yarpview</name>
-                <parameters>--name /viewer --x 320 --y 0 --p 50 --compact</parameters>
-                <node>localhost</node>
-        </module>
   
         <module>
                 <name>follower</name>
@@ -34,34 +27,7 @@
 
 
         <!-- connections -->
-
-        <connection>
-            <from>/depthCamera/rgbImage:o</from>
-            <to>/yarpOpenPose/image:i</to>
-            <protocol>mjpeg</protocol>
-        </connection>
-
-        <connection>
-            <from>/depthCamera/depthImage:o</from>
-            <to>/yarpOpenPose/float:i</to>
-            <!--<protocol>fast_tcp+send.portmonitor+file.zfp+recv.portmonitor+file.zfp+type.dll</protocol>-->
-            <protocol>fast_tcp</protocol>
-        </connection>
-
-        <connection>
-            <from>/yarpOpenPose/float:o</from>
-            <to>/skeletonRetriever/depth:i</to>
-            <!-- <protocol>fast_tcp+send.portmonitor+file.zfp+recv.portmonitor+file.zfp+type.dll</protocol> -->
-            <protocol>fast_tcp</protocol>
-        </connection>
-
-        <connection>
-            <from>/skeletonRetriever/cam:rpc</from>
-            <to>/SIM_CER_ROBOT/depthCamera/rpc:i</to>
-            <protocol>fast_tcp</protocol>
-        </connection>
-
-   
+  
         <connection>
                 <from>/follower/commands:o</from>
                 <to>/baseControl/aux_control:i</to>

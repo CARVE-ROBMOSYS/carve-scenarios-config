@@ -65,18 +65,31 @@
         <node>localhost</node>
     </module>
 
+    <module>
+        <name> monitorGui </name>
+        <parameters> --from skill_list_2.txt --context carve-common </parameters>
+        <dependencies>
+            <port timeout="5"> /monitor/GraspBottle/rpc:i </port>
+        </dependencies>  
+        <node>localhost</node>
+    </module>
 
-
-
-
-
- 	<!-- connections -->
+	<!-- connections -->
+	<!-- GoToRoom -->
 	<connection>
-	  <from>   </from>
+	  <from> /tickManager/navigation/monitor:o  </from>
 	   <to> /monitor/GoToRoom/event:i </to>
 	   <protocol>tcp</protocol>
 	</connection>
 
+	<connection>
+	  <from> /yarpNavigationClient/monitor:o  </from>
+	   <to> /monitor/GoToRoom/event:i </to>
+	   <protocol>tcp</protocol>
+	</connection>
+
+
+	<!-- follower -->
 	<connection>
 	  <from> /tickManager/follower/monitor:o  </from>
 	   <to> /monitor/FollowHuman/event:i </to>
@@ -84,26 +97,28 @@
 	</connection>
 
 	<connection>
-	  <from>   </from>
+	  <from> /follower/monitor:o???????  </from>
+	   <to> /monitor/FollowHuman/event:i </to>
+	   <protocol>tcp</protocol>
+	</connection>
+
+	<!-- FindBottle -->
+	<connection>
+	  <from> /tickManager/navigation/monitor:o  </from>
 	   <to> /monitor/FindBottle/event:i </to>
 	   <protocol>tcp</protocol>
 	</connection>
 
 	<connection>
+	  <from> /yarpNavigationClient/monitor:o  </from>
+	   <to> /monitor/FindBottle/event:i </to>
+	   <protocol>tcp</protocol>
+	</connection>
+
+	<!-- ComputeInvPose -->
+	<connection>
 	  <from> /tickManager/ComputeInvPose/monitor:o </from>
 	   <to>  /monitor/ComputeInvPose/event:i </to>
-	   <protocol>tcp</protocol>
-	</connection>
-
-	<connection>
-	  <from>   </from>
-	   <to> /monitor/KeepArmsForGrasp/event:i </to>
-	   <protocol>tcp</protocol>
-	</connection>
-
-	<connection>
-	  <from>   </from>
-	   <to> /monitor/GoToInvPose/event:i </to>
 	   <protocol>tcp</protocol>
 	</connection>
 
@@ -113,6 +128,46 @@
 	   <protocol>tcp</protocol>
 	</connection>
 
+	<!-- KeepArmsForGrasp -->
+	<connection>
+	  <from> /tickManager/manipulation/monitor:o  </from>
+	   <to>  /monitor/KeepArmsForGrasp/event:i </to>
+	   <protocol>tcp</protocol>
+	</connection>
+
+	<connection>
+	  <from> /graspingSkill/monitor:o  </from>
+	   <to> /monitor/KeepArmsForGrasp/event:i </to>
+	   <protocol>tcp</protocol>
+	</connection>
+
+	<!-- GoToInvPose -->
+	<connection>
+	  <from> /tickManager/navigation/monitor:o  </from>
+	   <to> /monitor/GoToInvPose/event:i </to>
+	   <protocol>tcp</protocol>
+	</connection>
+
+	<connection>
+	  <from> /yarpNavigationClient/monitor:o  </from>
+	   <to> /monitor/GoToInvPose/event:i </to>
+	   <protocol>tcp</protocol>
+	</connection>
+
+	<!-- ComputeInvPose -->
+	<connection>
+	  <from> /tickManager/ComputeInvPose/monitor:o </from>
+	   <to>  /monitor/ComputeInvPose/event:i </to>
+	   <protocol>tcp</protocol>
+	</connection>
+
+	<connection>
+	  <from> /ComputeInvPose/monitor:o </from>
+	   <to>  /monitor/ComputeInvPose/event:i </to>
+	   <protocol>tcp</protocol>
+	</connection>
+
+	<!-- LocateBottle -->
 	<connection>
 	  <from> /tickManager/LocateBottle/monitor:o  </from>
 	   <to>  /monitor/LocateBottle/event:i </to>
@@ -125,12 +180,20 @@
 	   <protocol>tcp</protocol>
 	</connection>
 
+	<!-- GraspBottle -->
 	<connection>
-	  <from>   </from>
+	  <from>  /tickManager/manipulation/monitor:o   </from>
 	   <to> /monitor/GraspBottle/event:i </to>
 	   <protocol>tcp</protocol>
 	</connection>
 
+	<connection>
+	  <from> /graspingSkill/monitor:o  </from>
+	   <to> /monitor/GraspBottle/event:i </to>
+	   <protocol>tcp</protocol>
+	</connection>
+
+	<!-- SetInvPoseInvalid -->
 	<connection>
 	  <from> /tickManager/setInvPoseInvalid/monitor:o  </from>
 	   <to> /monitor/SetInvPoseInvalid/event:i </to>
@@ -138,14 +201,23 @@
 	</connection>
 
 	<connection>
+	  <from> /setInvPoseInvalid/monitor:o </from>
+	   <to> /monitor/SetInvPoseInvalid/event:i </to>
+	   <protocol>tcp</protocol>
+	</connection>
+
+	<!-- AskForHelp -->
+	<connection>
 	  <from> /tickManager/AskForHelp/monitor:o  </from>
 	   <to> /monitor/AskForHelp/event:i </to>
 	   <protocol>tcp</protocol>
 	</connection>
 
-
-
-
+	<connection>
+	  <from> /AskForHelp/monitor:o  </from>
+	   <to> /monitor/AskForHelp/event:i </to>
+	   <protocol>tcp</protocol>
+	</connection>
 
 </application>
 
