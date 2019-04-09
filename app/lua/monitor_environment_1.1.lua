@@ -8,10 +8,16 @@ return rfsm.state {
 
     --States
 
-    --Wait_req_KeepArmsForGrasp
-    Wait_req_KeepArmsForGrasp = rfsm.state{
+    --FAILED
+    FAILED = rfsm.state{
         doo = function()   end,
-    }, --end of Wait_req_KeepArmsForGrasp
+    }, --end of FAILED
+
+
+    --Wait_from_env_KeepArmsForGrasp
+    Wait_from_env_KeepArmsForGrasp = rfsm.state{
+        doo = function()   end,
+    }, --end of Wait_from_env_KeepArmsForGrasp
 
 
     --OK
@@ -20,10 +26,24 @@ return rfsm.state {
     }, --end of OK
 
 
-    --Wait_req_GoToInvPose
-    Wait_req_GoToInvPose = rfsm.state{
+    initial = rfsm.conn{ },
+
+    --Wait_req_GoToRoom
+    Wait_req_GoToRoom = rfsm.state{
         doo = function()   end,
-    }, --end of Wait_req_GoToInvPose
+    }, --end of Wait_req_GoToRoom
+
+
+    --Wait_req_KeepArmsForGrasp
+    Wait_req_KeepArmsForGrasp = rfsm.state{
+        doo = function()   end,
+    }, --end of Wait_req_KeepArmsForGrasp
+
+
+    --Wait_from_env_ComputeInvPose
+    Wait_from_env_ComputeInvPose = rfsm.state{
+        doo = function()   end,
+    }, --end of Wait_from_env_ComputeInvPose
 
 
     --Wait_req_GraspBottle
@@ -32,10 +52,34 @@ return rfsm.state {
     }, --end of Wait_req_GraspBottle
 
 
-    --FAILED
-    FAILED = rfsm.state{
+    --Wait_from_env_GotoInvPose
+    Wait_from_env_GotoInvPose = rfsm.state{
         doo = function()   end,
-    }, --end of FAILED
+    }, --end of Wait_from_env_GotoInvPose
+
+
+    --Wait_from_env_FindBottle
+    Wait_from_env_FindBottle = rfsm.state{
+        doo = function()   end,
+    }, --end of Wait_from_env_FindBottle
+
+
+    --Wait_req_GoToInvPose
+    Wait_req_GoToInvPose = rfsm.state{
+        doo = function()   end,
+    }, --end of Wait_req_GoToInvPose
+
+
+    --Wait_req_LocateBottle
+    Wait_req_LocateBottle = rfsm.state{
+        doo = function()   end,
+    }, --end of Wait_req_LocateBottle
+
+
+    --Wait_from_env_LocateBottle
+    Wait_from_env_LocateBottle = rfsm.state{
+        doo = function()   end,
+    }, --end of Wait_from_env_LocateBottle
 
 
     --Wait_from_env_GraspBottle
@@ -50,48 +94,16 @@ return rfsm.state {
     }, --end of Wait_from_env_GoToRoom
 
 
-    --Wait_req_GoToRoom
-    Wait_req_GoToRoom = rfsm.state{
+    --Wait_req_ComputeInvPose
+    Wait_req_ComputeInvPose = rfsm.state{
         doo = function()   end,
-    }, --end of Wait_req_GoToRoom
-
-
-    --Wait_from_env_GotoInvPose
-    Wait_from_env_GotoInvPose = rfsm.state{
-        doo = function()   end,
-    }, --end of Wait_from_env_GotoInvPose
-
-
-    --Wait_from_env_KeepArmsForGrasp
-    Wait_from_env_KeepArmsForGrasp = rfsm.state{
-        doo = function()   end,
-    }, --end of Wait_from_env_KeepArmsForGrasp
+    }, --end of Wait_req_ComputeInvPose
 
 
     --Wait_req_FindBottle
     Wait_req_FindBottle = rfsm.state{
         doo = function()   end,
     }, --end of Wait_req_FindBottle
-
-
-    --Wait_from_env_LocateBottle
-    Wait_from_env_LocateBottle = rfsm.state{
-        doo = function()   end,
-    }, --end of Wait_from_env_LocateBottle
-
-
-    initial = rfsm.conn{ },
-
-    --Wait_from_env_FindBottle
-    Wait_from_env_FindBottle = rfsm.state{
-        doo = function()   end,
-    }, --end of Wait_from_env_FindBottle
-
-
-    --Wait_req_LocateBottle
-    Wait_req_LocateBottle = rfsm.state{
-        doo = function()   end,
-    }, --end of Wait_req_LocateBottle
 
 
 
@@ -104,8 +116,6 @@ return rfsm.state {
     rfsm.trans{ src = 'Wait_req_GraspBottle', tgt = 'Wait_from_env_GraspBottle', pn = 0, events = {"e_req_GraspBottle"} },
     rfsm.trans{ src = 'Wait_from_env_GraspBottle', tgt = 'FAILED', pn = 0, events = {"e_timeout"} },
     rfsm.trans{ src = 'Wait_req_GoToRoom', tgt = 'Wait_from_env_GoToRoom', pn = 0, events = {"e_req_GoToRoom"} },
-    rfsm.trans{ src = 'Wait_from_env_FindBottle', tgt = 'Wait_req_KeepArmsForGrasp', pn = 0, events = {"e_from_env_FindBottle"} },
-    rfsm.trans{ src = 'Wait_req_KeepArmsForGrasp', tgt = 'Wait_from_env_KeepArmsForGrasp', pn = 0, events = {"e_req_KeepArmsForGrasp"} },
     rfsm.trans{ src = 'Wait_from_env_KeepArmsForGrasp', tgt = 'Wait_req_GoToInvPose', pn = 0, events = {"e_from_env_KeepArmsForGrasp"} },
     rfsm.trans{ src = 'Wait_req_GoToInvPose', tgt = 'Wait_from_env_GotoInvPose', pn = 0, events = {"e_req_GoToInvPose"} },
     rfsm.trans{ src = 'Wait_from_env_GotoInvPose', tgt = 'Wait_req_LocateBottle', pn = 0, events = {"e_from_env_GoToInvPose"} },
@@ -115,4 +125,9 @@ return rfsm.state {
     rfsm.trans{ src = 'Wait_from_env_LocateBottle', tgt = 'FAILED', pn = 0, events = {"e_timeout"} },
     rfsm.trans{ src = 'Wait_from_env_KeepArmsForGrasp', tgt = 'FAILED', pn = 0, events = {"e_timeout"} },
     rfsm.trans{ src = 'Wait_from_env_GraspBottle', tgt = 'OK', pn = 0 },
+    rfsm.trans{ src = 'Wait_req_ComputeInvPose', tgt = 'Wait_from_env_ComputeInvPose', pn = 0, events = {"e_req_ComputeInvPose"} },
+    rfsm.trans{ src = 'Wait_from_env_ComputeInvPose', tgt = 'Wait_req_KeepArmsForGrasp', pn = 0, events = {"e_from_env_ComputeInvPose"} },
+    rfsm.trans{ src = 'Wait_from_env_FindBottle', tgt = 'Wait_req_ComputeInvPose', pn = 0, events = {"e_from_env_FindBottle"} },
+    rfsm.trans{ src = 'Wait_req_KeepArmsForGrasp', tgt = 'Wait_from_env_KeepArmsForGrasp', pn = 0, events = {"e_req_KeepArmsForGrasp"} },
+    rfsm.trans{ src = 'Wait_from_env_ComputeInvPose', tgt = 'FAILED', pn = 0, events = {"e_timeout"} },
 }
