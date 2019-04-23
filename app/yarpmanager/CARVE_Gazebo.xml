@@ -5,7 +5,7 @@
 
     <module>
         <name> gazebo </name>
-        <parameters> -slibgazebo_yarp_clock.so /usr/local/src/robot/yarp-smartsoft/carve-scenarios-config/gazebo/world/sanquirico_simplified_R1.world </parameters>
+        <parameters> -slibgazebo_yarp_clock.so /usr/local/src/robot/yarp-smartsoft/carve-scenarios-config/gazebo/world/sanquirico_simplified_R1_human.world </parameters>
         <node> localhost </node>
     </module>
 

@@ -36,6 +36,12 @@
         <pose> 10.89 0.94 0.78 -0.0 0.0 0.0 </pose>
     </include>
 
+    <!-- red ball -->
+    <include>
+        <uri>model://Luca </uri>
+        <pose> 7.0 -0.5 0.0  0 0 0 </pose>
+    </include>
+
     <!-- door -->
     <include>
         <uri>model://Door </uri>

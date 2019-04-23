@@ -13,7 +13,7 @@
 
     <module>
         <name> monitor </name>
-        <parameters> --name follower --context carve-common --from monitor_config.ini </parameters>
+        <parameters> --name follower --context carve-common --from monitor_follower_timed.ini </parameters>
         <node>localhost</node>
     </module>
 

@@ -1,4 +1,3 @@
-
 <?xml version="1.0" ?>
 <sdf version="1.4">
   <world name="default">
@@ -18,11 +17,36 @@
         <pose> 1.5 2 0  0 0 0 </pose>
     </include>
 
+    <!-- cafe table -->
+    <include>
+        <uri>model://cafe_table </uri>
+        <pose> 11.08 1.15 0.01 0.0 0.0 -0.26 </pose>
+    </include>
+
+    <!-- coke -->
+    <include>
+        <uri>model://coke_can </uri>
+        <name>Bottle</name>
+        <pose> 10.89 0.94 0.78 -0.0 0.0 0.0 </pose>
+    </include>
+
+    <!-- Human -->
+    <include>
+        <uri>model://Luca </uri>
+        <pose> 7.0 -0.5 0.0  0 0 0 </pose>
+    </include>
+
+    <!-- door -->
+    <include>
+        <uri>model://Door </uri>
+        <pose> 10.6 0.03 0.72 0.0 0.0 1.37 </pose>
+    </include>
     <gui>
-      <camera name="user_camera">
+        <camera name="user_camera">
         <pose> 10.8 -6.5 13.5 0 1 2 </pose>
       </camera>
     </gui>
 
   </world>
 </sdf>
+
