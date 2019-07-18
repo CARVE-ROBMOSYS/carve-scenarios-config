@@ -22,13 +22,6 @@
        <node>localhost</node>
     </module>
 
-   <module>  <!-- state publisher requires the TF server -->
-        <name> statePub.sh </name>
-        <node>localhost</node>
-	<workdir> /home/r1-user </workdir>
-    </module>
-
-
     <module>
        <name>yarpdev</name>
        <parameters>--device map2DServer --mapCollectionContext sanquirico </parameters>
@@ -38,7 +31,7 @@
 
 	<module>
 	   <name>yarpdev</name>
-	   <parameters> --device localization2DServer --subdevice gazeboLocalizer --context sanquirico_sim --from localizationServer.ini </parameters>
+	   <parameters> --device localization2DServer --subdevice rosLocalizer --context sanquirico --from localizationServer.ini </parameters>
 	   <node> localhost </node>  
 	   <dependencies>
 		<port timeout="20"> /mapServer/rpc </port>
